@@ -14,7 +14,6 @@ public class Texture
 
         this.Name = splitArray[splitArray.Length - 1];
         
-        Console.WriteLine("Called");
         this.Material = new MaterialBuilder()
             .WithMetallicRoughnessShader()
             .WithChannelImage(KnownChannel.BaseColor, path);

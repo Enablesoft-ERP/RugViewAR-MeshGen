@@ -17,6 +17,8 @@ namespace RugViewAR.MeshGen
             Plane plane = new Plane(new Vector2(0, 0), new Vector2(1, 1));
             plane.SetTexture(new Texture("texture.png"));
             
+            plane.Rotate(new Vector3(1, 0, 0));
+            
             scene.AddMesh(plane.Mesh);
             
             scene.Export("exported.gltf");

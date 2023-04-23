@@ -33,6 +33,9 @@ public class Plane
             this.Positions[x].ApplyTransform(Matrix4x4.CreateRotationY(vector.Y));
             this.Positions[x].ApplyTransform(Matrix4x4.CreateRotationZ(vector.Z));
         }
+        
+        this.GenerateVertexBuffer();
+        this.GenerateMesh();
     }
 
     public void Translate(Vector3 vector)
@@ -49,6 +52,12 @@ public class Plane
         this.GenerateMesh();
     }
 
+    protected void GenerateVertexBuffer()
+    {
+        for (int x = 0; x < this.Positions.Length; x++)
+            this.Buffer[x] = new VertexBuilder<VertexPosition, VertexTexture1, VertexEmpty>(this.Positions[x], this.TextureCoordinates[x]);
+    }
+    
     protected void Initialize()
     {
         this.Buffer = new VertexBuilder<VertexPosition, VertexTexture1, VertexEmpty>[4];
@@ -66,9 +75,6 @@ public class Plane
             new VertexPosition(this.Position.X + this.Dimensions.X, this.Position.Y + this.Dimensions.Y, 0),
             new VertexPosition(this.Position.X + this.Dimensions.X, this.Position.Y, 0)
         };
-
-        for (int x = 0; x < this.Positions.Length; x++)
-            this.Buffer[x] = new VertexBuilder<VertexPosition, VertexTexture1, VertexEmpty>(this.Positions[x], this.TextureCoordinates[x]);
 
         this.GenerateMesh();
     }
