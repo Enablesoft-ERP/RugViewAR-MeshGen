@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>RugViewAR_MeshGen</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpGLTF.Core" Version="1.0.0-alpha0028" />
+    <PackageReference Include="SharpGLTF.Toolkit" Version="1.0.0-alpha0028" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".setTexture.py.swp" />
+  </ItemGroup>
+
+</Project>
