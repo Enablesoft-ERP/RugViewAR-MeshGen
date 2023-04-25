@@ -14,10 +14,10 @@ namespace RugViewAR.MeshGen
         {
             Scene scene = new Scene();
 
-            Plane plane = new Plane(new Vector2(0, 0), new Vector2(1, 1));
+            Plane plane = new Plane(new Vector2(0, 0), new Vector2(1, 1.5f));
             plane.SetTexture(new Texture("texture.png"));
             
-            plane.Rotate(new Vector3(1, 0, 0));
+            plane.Rotate(new Vector3(1.5f, 0, 0));
             
             scene.AddMesh(plane.Mesh);
             

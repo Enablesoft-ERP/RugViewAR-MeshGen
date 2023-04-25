@@ -14,7 +14,7 @@ public class Plane
 
     public MaterialBuilder Texture;
 
-    public MeshBuilder<VertexPosition, VertexTexture1> Mesh; 
+    public readonly MeshBuilder<VertexPosition, VertexTexture1> Mesh; 
     
     protected PrimitiveBuilder<MaterialBuilder, VertexPosition, VertexTexture1, VertexEmpty> Primitive;
 
