@@ -1,3 +1,4 @@
+import os
 import bpy
 import addon_utils
 
@@ -101,6 +102,9 @@ class Tools:
         
         return (Tools.CombineStrings(splitArray, '.', 0, len(splitArray) - 1) + "." + extension)
 
+    def GetExtension(path: str):
+        split = path.split('.')
+        return split[len(split) - 1]
 
 class TexturePlane:
     Path = str()
@@ -121,7 +125,27 @@ class TexturePlane:
         self.Path = path     
         self.Initialize()
 
+
+
 #BlenderContext.EnableAddOn("io_import_images_as_planes")
+def GenerateModels():
+    dirList = os.listdir("./")
+    
+    split = list()
 
-TexturePlane("/Users/rishit/src/repos/RugViewAR-MeshGen/scripts/texture.png").Export()
+    for path in dirList:
+        if (Tools.GetExtension(path) == "jpg"):
+            split = path.split()        
+    
+            for x in range(2):
+                bpy.ops.object.select_all()
+            bpy.ops.object.delete()
 
+            if (os.path.exists(f"{split[len(split) - 2]}.glb")):
+                print(f"Model for {path} exists.")
+                continue
+            TexturePlane(path).Export()
+
+BlenderContext.EnableAddOn("io_import_images_as_planes")
+
+GenerateModels()
