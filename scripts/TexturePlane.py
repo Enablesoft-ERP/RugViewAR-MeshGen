@@ -1,4 +1,5 @@
 import os
+import sys
 import bpy
 import addon_utils
 
@@ -111,8 +112,8 @@ class TexturePlane:
     
     Name = str()
     
-    def Export(self):
-        bpy.ops.export_scene.gltf(filepath=(Tools.ReplaceFileExtension(self.Path, "gltf")))
+    def Export(self, fileName: str):
+        bpy.ops.export_scene.gltf(filepath=(fileName))
     
     def Initialize(self):
         splitArray = self.Path.split('/')
@@ -128,24 +129,34 @@ class TexturePlane:
 
 
 #BlenderContext.EnableAddOn("io_import_images_as_planes")
-def GenerateModels():
-    dirList = os.listdir("./")
+def GenerateModels(imageDirPath: str, outputPath: str):
+    dirList: list[str] = os.listdir(imageDirPath)
     
-    split = list()
+    split: list[str] = None
 
     for path in dirList:
+        path = f"{imageDirPath}/{path}"
         if (Tools.GetExtension(path) == "jpg"):
-            split = path.split()        
+            split = path.split('/')
     
             for x in range(2):
                 bpy.ops.object.select_all()
             bpy.ops.object.delete()
+    
 
-            if (os.path.exists(f"{split[len(split) - 2]}.glb")):
+            modelName: str = Tools.ReplaceFileExtension(split[len(split) - 1], "glb")
+
+            if (os.path.exists(f"{outputPath}/{modelName}")):
                 print(f"Model for {path} exists.")
                 continue
-            TexturePlane(path).Export()
+            TexturePlane(path).Export(f"{outputPath}/{modelName}")
 
-BlenderContext.EnableAddOn("io_import_images_as_planes")
+def Main(argv: list[str]) -> None:
+    BlenderContext.EnableAddOn("io_import_images_as_planes")
 
-GenerateModels()
+    GenerateModels(argv[0], argv[1])
+
+Main(sys.argv[sys.argv.index("--") + 1:])
+
+
+
